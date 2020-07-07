@@ -1,6 +1,7 @@
 import app from 'firebase/app';
 import 'firebase/auth';
-import 'firebase/firestore';
+import 'firebase/database';
+//import 'firebase/firestore';
 import 'firebase/functions';
 
 import config from '../../../firebaseConfig';
@@ -11,13 +12,15 @@ class Firebase {
 
     /* Helper */
 
-    this.fieldValue = app.firestore.FieldValue;
+    //this.fieldValue = app.firestore.FieldValue;
     this.emailAuthProvider = app.auth.EmailAuthProvider;
 
     /* Firebase APIs */
 
     this.auth = app.auth();
-    this.db = app.firestore();
+    this.db = app.database();
+    console.log(app.database());
+    
     this.functions = app.functions();
 
     /* Social Sign In Method Provider */
@@ -61,7 +64,9 @@ class Firebase {
   onAuthUserListener = (next, fallback) =>
     this.auth.onAuthStateChanged(authUser => {
       if (authUser) {
-        this.user(authUser.uid)
+        console.log('--->',authUser);
+        next(authUser);
+        /* this.user(authUser.uid)
           .get()
           .then(snapshot => {
             const dbUser = snapshot.data();
@@ -76,7 +81,7 @@ class Firebase {
             };
 
             next(authUser);
-          });
+          }); */
       } else {
         fallback();
       }
@@ -84,13 +89,14 @@ class Firebase {
 
   // *** User API ***
 
-  user = uid => this.db.doc(`users/${uid}`);
+  user = uid => this.db.ref(`user/${uid}`);
+  users = () => this.db.collection('user/');
 
+/*   user = uid => this.db.doc(`users/${uid}`);
   users = () => this.db.collection('users');
+  posts = () => this.db.collection('posts'); */
 
-  posts = () => this.db.collection('posts');
-
-  post = post => this.posts().where('slug', '==', post.slug);
+  // post = post => this.posts().where('slug', '==', post.slug);
 }
 
 let firebase;

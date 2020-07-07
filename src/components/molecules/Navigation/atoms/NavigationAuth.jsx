@@ -32,24 +32,6 @@ const NavigationAuth = () => (
                 Ovidiu Mihai Belciug
               </a>
             </span>
-            <div>
-              <iframe
-                src="https://ghbtns.com/github-btn.html?user=ovidiumihaibelciug&type=follow&count=true"
-                frameborder="0"
-                scrolling="0"
-                width="170px"
-                height="20px"
-              />
-            </div>
-            <div>
-              <iframe
-                src="https://ghbtns.com/github-btn.html?user=ovidiumihaibelciug&repo=gatsby-firebase-starter&type=star&count=true"
-                frameborder="0"
-                scrolling="0"
-                width="170px"
-                height="20px"
-              />
-            </div>
           </div>
         </div>
       </div>
